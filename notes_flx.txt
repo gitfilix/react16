@@ -1,0 +1,55 @@
+react 16 training
+
+https://www.udemy.com/react-the-complete-guide-incl-redux/learn/v4/t/lecture/8268490?start=0
+
+
+https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js
+
+https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js
+
+
+next js features repetition
+---------------------------
+
+let: variable values
+
+const: constant values
+
+arrow function: keeps always the this scope
+
+export & imports (modules):
+1. default export: import person from './person.js'
+
+2. named exports:
+    2.1 {smth as Smth} from './utility.js'
+
+    2.2 import * as bundled from './utility.js'
+
+
+classes: blueprint for objects
+
+class Person extends Humen{
+    constructor() {
+        super();
+        this.name = 'max';
+    }
+    PrintMyName() {
+        console.log(this.name);
+    }
+}
+
+const person = New Person();
+person.PrintMyName();
+
+// if you want to exend a class -> call super! so the super-class is called
+
+
+spread operator: used to split up array elements OR object properties
+    cost newArray = [...oldArray, 1, 2];
+    const newObject = { ...oldObject, newProps: 5 }
+
+
+rest operator: used to merge a list of function argumets into an newArray
+    function sortArgs(...args) {
+        return args.sort();
+    }
