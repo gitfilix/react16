@@ -8,24 +8,18 @@ class App extends Component {
         persons: [
             {name: 'Max', age: 28},
             {name: 'Manuel', age: 27},
-            {name: 'Stephanie', age: 37},
-            {animal: 'dog', color: 'black'}
+            {name: 'Stephanie', age: 37}
         ],
         otherState: 'some other string-values',
         showPersons: false
     }
 
-    switchNameHandler = (newName) => {
-        console.log("switchNameHandler newName", newName);
-        this.setState( {
-            persons : [
-                {name: newName, age: 28},
-                {name: 'Emanuelle', age: 17},
-                {name: 'Stephanie', age: 47},
-                {animal: 'dog', color: 'black'}
-            ]
-        })
+    deletePersonHandler = (personIndex) => {
+        const personsNew = this.state.persons;
+        personsNew.splice(personIndex, 1);
+        this.setState({persons: personsNew})
     }
+
     // take the value of the onchange handler and put it into the updated state
     nameChangedHandler = (event) => {
         this.setState({
@@ -56,23 +50,18 @@ class App extends Component {
           borderRadius: '3px',
           cursor: 'pointer'
     };
-
+    // toggle view of this
     let persons = null;
+
     if (this.state.showPersons) {
         persons = (
             <div>
-                <Person
-                name={this.state.persons[0].name}
-                age={this.state.persons[0].age}>and I have no hobbies</Person>
-                <Person
-                name={this.state.persons[1].name}
-                age={this.state.persons[1].age}
-                // pass a function or method as props to the function component- nice
-                click={this.switchNameHandler.bind(this, 'Max!')}
-                changed={this.nameChangedHandler}>and I like to click</Person>
-                <Person
-                name={this.state.persons[2].name}
-                age={this.state.persons[2].age} />
+                {this.state.persons.map((person, index) => {
+                    return <Person
+                        click={ () =>this.deletePersonHandler(index)}
+                        name={person.name}
+                        age={person.age}  />
+                })}
             </div>
         );
     }
@@ -84,14 +73,9 @@ class App extends Component {
         <button
             style={style}
             onClick={ ()=> this.togglePersonsHandler()}>Toggle Persons</button>
-            // var persons
+
+            var obj persons:
             {persons}
-        {
-            // is showPersons true? show it o
-            // this.state.showPersons === true ?
-
-
-        }
 
       </div>
     );
