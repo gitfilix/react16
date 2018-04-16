@@ -1,0 +1,7 @@
+Git tricks and tipps
+---------------------
+
+
+#add remote server repo to existing local
+
+git remote add origin https://github.com/gitfilix/react16.git
