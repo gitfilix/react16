@@ -11,7 +11,8 @@ class App extends Component {
             {name: 'Stephanie', age: 37},
             {animal: 'dog', color: 'black'}
         ],
-        otherState: 'some other string-values'
+        otherState: 'some other string-values',
+        showPersons: false
     }
 
     switchNameHandler = (newName) => {
@@ -36,6 +37,16 @@ class App extends Component {
         })
     }
 
+    //
+    togglePersonsHandler = () => {
+        console.log("clicked");
+        // current state: true or false
+        const doesShow = this.state.showPersons;
+        // convert true to false and vice versa
+        this.setState({showPersons: !doesShow});
+    }
+
+
   render() {
     const style = {
           backgroundColor: 'white',
@@ -49,27 +60,30 @@ class App extends Component {
     return (
       <div className="App">
         <h2>Hi! I am Flix React App</h2>
-        exec handler with bind:
+
         <button
             style={style}
-            onClick={this.switchNameHandler.bind(this, 'filix')}>Switch Name</button>
-        <br />
-        exec handler with arrow anonimous function & call it !
-        <button
-            style={style}
-            onClick={ ()=> this.switchNameHandler('filix!!')}>Switch Name</button>
-        <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}>and I have no hobbies</Person>
-        <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            // pass a function or method as props to the function component- nice
-            click={this.switchNameHandler.bind(this, 'Max!')}
-            changed={this.nameChangedHandler}>and I like to click</Person>
-        <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age} />
+            onClick={ ()=> this.togglePersonsHandler()}>Toggle Persons</button>
+
+        {
+            // is showPersons true? show it o
+            this.state.showPersons === true ?
+            <div>
+                <Person
+                name={this.state.persons[0].name}
+                age={this.state.persons[0].age}>and I have no hobbies</Person>
+                <Person
+                name={this.state.persons[1].name}
+                age={this.state.persons[1].age}
+                // pass a function or method as props to the function component- nice
+                click={this.switchNameHandler.bind(this, 'Max!')}
+                changed={this.nameChangedHandler}>and I like to click</Person>
+                <Person
+                name={this.state.persons[2].name}
+                age={this.state.persons[2].age} />
+            </div> : null
+        }
+
       </div>
     );
   }
