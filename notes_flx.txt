@@ -62,4 +62,26 @@ destruturing: easy extract array elements or object properties and store them in
         console.log(a); // Hello
 
 
-         
+
+
+
+Components
+----------------
+
+1. Functional components (also referred to as "presentational", "dumb" or "stateless" components)
+
+const cmp = () => {
+ return <div>some JSX</div>
+}
+
+2. Class-based components (also referred to as "containers", "smart" or "stateful" components)
+
+class Cmp extends Component {
+ render () {
+    return <div>some JSX</div>
+    }
+ }
+
+Only class-based components can define and use 'state' !
+You can of course pass the state down to functional components,
+but these then can't directly edit it. (cause they are dumb as shit)
