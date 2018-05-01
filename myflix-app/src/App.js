@@ -4,36 +4,52 @@ import Person from './Person/Person.js';
 
 
 class App extends Component {
+    // data comming from the feed
     state = {
         persons: [
-            {name: 'Max', age: 28},
-            {name: 'Manuel', age: 27},
-            {name: 'Stephanie', age: 37}
+            {id: 'gasa', name: 'Max', age: 28},
+            {id: '3232', name: 'Manuel', age: 27},
+            {id: '04', name: 'Stephanie', age: 37}
         ],
         otherState: 'some other string-values',
         showPersons: false
     }
 
+    // delete the clicked
     deletePersonHandler = (personIndex) => {
-        const personsNew = this.state.persons;
+        // Classic Approach: slice does COPY the array
+        // const personsNew = this.state.persons.slice();
+        // ES6 fancy Approach: rest operator
+        const personsNew = [...this.state.persons];
         personsNew.splice(personIndex, 1);
         this.setState({persons: personsNew})
     }
 
     // take the value of the onchange handler and put it into the updated state
-    nameChangedHandler = (event) => {
-        this.setState({
-            persons :[
-                {name: 'maxime', age: 18},
-                {name: event.target.value, age: 77},
-                {name: 'Steven', age: 33}
-            ]
-        })
+    nameChangedHandler = (event, id) => {
+        // which index
+        const personIndex = this.state.persons.findIndex(p => {
+            return p.id === id;
+        });
+
+        // new object - cause never mutate the state directly
+        const personToRename = {
+            ...this.state.persons[personIndex]
+        };
+        // Classic style of this would be:
+        //const personToRename = Object.assign({}, this.state.persons[personIndex]);
+
+        personToRename.name = event.target.value;
+
+        const persons = [...this.state.persons];
+        persons[personIndex] = personToRename;
+
+        this.setState( {persons: persons} );
     }
 
-    //
+    //show or hide
     togglePersonsHandler = () => {
-        console.log("clicked");
+        console.log("clicked toggler");
         // current state: true or false
         const doesShow = this.state.showPersons;
         // convert true to false and vice versa
@@ -60,7 +76,9 @@ class App extends Component {
                     return <Person
                         click={ () =>this.deletePersonHandler(index)}
                         name={person.name}
-                        age={person.age}  />
+                        age={person.age}
+                        key={person.id}
+                        changed={(event) =>this.nameChangedHandler(event, person.id)} />
                 })}
             </div>
         );
@@ -74,7 +92,7 @@ class App extends Component {
             style={style}
             onClick={ ()=> this.togglePersonsHandler()}>Toggle Persons</button>
 
-            var obj persons:
+
             {persons}
 
       </div>
