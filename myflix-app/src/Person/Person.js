@@ -4,6 +4,12 @@ import './Person.css';
 
 // es6 fn: argument-list, arrow, funcion-body
 const person = (props) => {
+
+    // throw an random error
+    const rnd = Math.random();
+    if (rnd > 0.7) {
+        throw new Error( 'Something terrible happend! ');
+    }
     return (
         <div className="Person">
             <p onClick={props.click}>I am {props.name} and I am {props.age} years old. </p>
