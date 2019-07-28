@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person.js';
-
+import Persons from '../components/Persons/Persons.js';
+import Cockpit from '../components/Cockpit/Cockpit.js';
 
 class App extends Component {
     // data comming from the feed
@@ -49,7 +49,7 @@ class App extends Component {
 
     //show or hide
     togglePersonsHandler = () => {
-        console.log("clicked toggler");
+        // console.log("clicked toggler");
         // current state: true or false
         const doesShow = this.state.showPersons;
         // convert true to false and vice versa
@@ -58,43 +58,24 @@ class App extends Component {
 
 
   render() {
-    const style = {
-          backgroundColor: 'white',
-          font: 'inherit',
-          border: '1px solid green',
-          padding: '4px',
-          borderRadius: '3px',
-          cursor: 'pointer'
-    };
     // toggle view of this
     let persons = null;
 
     if (this.state.showPersons) {
         persons = (
-            <div>
-                {this.state.persons.map((person, index) => {
-                    return <Person
-                        click={ () =>this.deletePersonHandler(index)}
-                        name={person.name}
-                        age={person.age}
-                        key={person.id}
-                        changed={(event) =>this.nameChangedHandler(event, person.id)} />
-                })}
-            </div>
+            <Persons persons={this.state.persons}
+                     clicked={this.deletePersonHandler}
+                     changed={this.nameChangedHandler} />
         );
     }
 
     return (
       <div className="App">
-        <h2>Hi! I am Flix React App</h2>
-
-        <button
-            style={style}
-            onClick={ ()=> this.togglePersonsHandler()}>Toggle Persons</button>
-
-
-            {persons}
-
+        <Cockpit
+            showPersons={this.state.showPersons}
+            persons={this.state.persons}
+            clicked={this.togglePersonsHandler} />
+        {persons}
       </div>
     );
   }

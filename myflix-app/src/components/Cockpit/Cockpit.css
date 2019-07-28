@@ -1,0 +1,22 @@
+.Cockpit button {
+    border: 1px solid blue;
+    padding: 16px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.Cockpit button:hover {
+    border: 1px solid black;
+    padding: 16px;
+    cursor: crosshair;
+}
+
+.Cockpit button.Red {
+    background-color: #A33;
+}
+
+.Cockpit button.Red:hover {
+    background-color: #F33;
+    color: #FFF;
+}
