@@ -12,24 +12,13 @@ const cockpit = (props) => {
     if (props.persons.length <=1) {
         assignedClasses.push( classes.red);
     }
-
     if (props.showPersons) {
         btnClass = classes.Red;
     }
 
-    const style = {
-          backgroundColor: 'white',
-          font: 'inherit',
-          // border: '1px solid green',
-          padding: '4px',
-          borderRadius: '3px',
-          cursor: 'pointer'
-    };
-
-
     return (
         <div className={classes.Cockpit}>
-            <h2>Hi! I am Flix ToggleButton App</h2>
+            <h2>Hi! I am Flix ToggleButton App called "{props.title}"</h2>
             <p className={assignedClasses.join ( ' ')}>Hi paragraph</p>
             <button
                 className={btnClass}

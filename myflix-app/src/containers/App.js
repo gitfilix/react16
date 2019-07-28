@@ -3,6 +3,7 @@ import './App.css';
 import Persons from '../components/Persons/Persons.js';
 import Cockpit from '../components/Cockpit/Cockpit.js';
 
+// classBased component because state mutation
 class App extends Component {
     // data comming from the feed
     state = {
@@ -31,7 +32,6 @@ class App extends Component {
         const personIndex = this.state.persons.findIndex(p => {
             return p.id === id;
         });
-
         // new object - cause never mutate the state directly
         const personToRename = {
             ...this.state.persons[personIndex]
@@ -60,7 +60,6 @@ class App extends Component {
   render() {
     // toggle view of this
     let persons = null;
-
     if (this.state.showPersons) {
         persons = (
             <Persons persons={this.state.persons}
@@ -68,10 +67,10 @@ class App extends Component {
                      changed={this.nameChangedHandler} />
         );
     }
-
     return (
       <div className="App">
         <Cockpit
+            title={this.props.appTitle}
             showPersons={this.state.showPersons}
             persons={this.state.persons}
             clicked={this.togglePersonsHandler} />
