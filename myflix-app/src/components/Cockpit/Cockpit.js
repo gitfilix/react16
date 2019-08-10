@@ -9,9 +9,9 @@ const cockpit = (props) => {
     useEffect(() => {
         console.log('[cockpit.js] use effect');
         // fake http request
-        setTimeout(() => {
-            alert('loaded data')
-        }, 1000)
+        // setTimeout(() => {
+        //     alert('loaded data')
+        // }, 1000)
         // only executes if props of persons changes
     }, [props.persons]);
 
