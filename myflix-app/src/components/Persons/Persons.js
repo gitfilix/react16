@@ -4,6 +4,21 @@ import Person from './Person/Person';
 
 // now: classBased: with capital P
 class Persons extends Component {
+    //
+    static getDerivedStateFromProps(props, state) {
+        console.log('[personsS.js]: getDerivedStateFromProps');
+        return state;
+    }
+
+    // must return a true or false! should I update ?
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('personS.js: shouldComponentUpdate');
+        return true;
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log('Persons.js: componentDidUpdate');
+    }
 
     render() {
         console.log('PersonS.js: rendering... ');
