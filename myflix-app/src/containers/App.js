@@ -5,7 +5,13 @@ import Cockpit from '../components/Cockpit/Cockpit.js';
 
 // classBased component because state mutation
 class App extends Component {
-    // data comming from the feed
+    constructor(props) {
+        super(props);
+        console.log('App.js constructor');
+    }
+
+    // data comming from the 'feed'
+    // here state initialising modern will be executed in constructor
     state = {
         persons: [
             {id: 'gasa', name: 'Max', age: 28},
@@ -14,6 +20,16 @@ class App extends Component {
         ],
         otherState: 'some other string-values',
         showPersons: false
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        console.log('App.js: getDerivedStateFromProps', props);
+        return state;
+
+    }
+
+    componentDidMount() {
+        console.log('App.js: componentDidMount');
     }
 
     // delete the clicked
@@ -58,6 +74,7 @@ class App extends Component {
 
 
   render() {
+    console.log('App.js render');
     // toggle view of this
     let persons = null;
     if (this.state.showPersons) {

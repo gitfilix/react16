@@ -104,10 +104,24 @@ but these then can't directly edit it. (cause they are dumb as shit)
 
 
 
-Component Lifecycle (%)
+Component Lifecycles (%)
 ----------------------------
 
 
 - constructor()
+    - call super(props)
+    - setup State here
+
+
 - getDerivedStateFromProps()
+    -use for just update state
+
+- render()
+    - prepare & structure your jsx code
+
+- componentDidMount()
+    - cause side-effects
+    - get feed here
+    - DONT setState here (trigger re-render)
+
 - getSnapshotsBeforeUpdate()
