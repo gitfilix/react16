@@ -7,8 +7,8 @@ import Search from './Search';
 const Ingredients = () => {
     const [ userIngredients, setUserIngredients] = useState([]);
 
-    // handler for the form to add some ing.
-    const addIngredientHandler = ingredient => {
+    // handler for the form to add some ingr. called by Ing-form submitHandler onAddIngredient.
+    const addIngredientHandler = (ingredient) => {
         // get most recent Ingredient('prevIngredients') and
         setUserIngredients(prevIngredients => [
             ...prevIngredients,
