@@ -130,5 +130,9 @@ Component Lifecycles (%)
 React hooks!
 -------------
 
-- useState can be initialised with default values like an array, a boolian or an object.
+- useState can be initialised with default values like an array, a boolian, number or an object.
 (compared to classicle state: always an object!)
+
+- useState(initialState) in a functional Component creates State that 'survives' livecycle updates!
+
+- hook must be declared on the root-level of the component

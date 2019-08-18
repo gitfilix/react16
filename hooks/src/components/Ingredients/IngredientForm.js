@@ -5,14 +5,17 @@ import './IngredientForm.css';
 
 const IngredientForm = React.memo(props => {
     // initialised state: inputState: data; setInputState: function to update data
-    const [ inputState, setInputState ] =  useState({
-        title: '',
-        amount: ''
-    });
+    // const [ inputState, setInputState ] =  useState({
+    //     title: '',
+    //     amount: ''
+    // });
+
+    const [enteredTitle, setEnteredTitle] = useState('');
+    const [enteredAmount, setEnteredAmmount] = useState('');
 
   const submitHandler = event => {
     event.preventDefault();
-    // ...
+    props.onAddIngredient({ title: enteredTitle, amount: enteredAmount });
   };
 
   return (
@@ -22,26 +25,16 @@ const IngredientForm = React.memo(props => {
           <div className="form-control">
             <label htmlFor="title">Name</label>
             <input type="text" id="title"
-                value={inputState.title}
-                onChange={event => {
-                    const newTitle = event.target.value;
-                    setInputState(prevInputState => ({
-                        title: newTitle,
-                        amount: prevInputState.amount
-                }))}
-            } />
+                value={enteredTitle}
+                onChange={event => {setEnteredTitle(event.target.value)}}
+                />
           </div>
           <div className="form-control">
             <label htmlFor="amount">Amount</label>
             <input type="number" id="amount"
-                value={inputState.amount}
-                onChange={event => {
-                    const newAmount = event.target.value;
-                    setInputState(prevInputState => ({
-                    amount: newAmount,
-                    title: prevInputState.title
-                }))}
-            } />
+                value={enteredAmount}
+                onChange={event => {setEnteredAmmount(event.target.value)}}
+                />
           </div>
           <div className="ingredient-form__actions">
             <button type="submit">Add Ingredient</button>
