@@ -125,3 +125,10 @@ Component Lifecycles (%)
     - DONT setState here (trigger re-render)
 
 - getSnapshotsBeforeUpdate()
+
+
+React hooks!
+-------------
+
+- useState can be initialised with default values like an array, a boolian or an object.
+(compared to classicle state: always an object!)
