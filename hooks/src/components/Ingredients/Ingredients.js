@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from './IngredientList';
@@ -13,6 +13,7 @@ const Ingredients = () => {
       fetch('https://react-hooks-5b94f.firebaseio.com/ingredients.json')
         .then(response => response.json())
         .then(responseData => {
+          // helper const
           const loadedIngredients = [];
           for (const key in responseData) {
             loadedIngredients.push({
@@ -23,8 +24,18 @@ const Ingredients = () => {
           }
           setUserIngredients(loadedIngredients);
         });
-        // empty array: dependencies of that functionan
-        // useEffect acts like componentDidMount (runs unly once)
+        // useEffect second argument: dependencies of that function, here empty array
+        // useEffect with empty arry useEffect acts like componentDidMount (runs unly once! )
+    }, []);
+
+    // test
+    // useEffect(()=> {
+    //     console.log('rendering ingredients');
+    // })
+
+    // filteredIngredientsHandler: useCallback preventing infinite rerendeing
+    const filteredIngredientsHandler = useCallback(filteredIngredients => {
+      setUserIngredients(filteredIngredients);
     }, []);
 
     // handler for the form to add some ingr. called by Ing-form submitHandler onAddIngredient.
@@ -52,7 +63,7 @@ const Ingredients = () => {
       <IngredientForm onAddIngredient={addIngredientHandler} />
 
       <section>
-        <Search />
+        <Search onLoadIngredients={filteredIngredientsHandler} />
         <IngredientList ingredients={userIngredients} onRemoveItem={() => {}} />
       </section>
     </div>
