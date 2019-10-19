@@ -33,3 +33,7 @@ classbased components
 - useState(initialState) in a functional Component creates State that 'survives' livecycle updates!
 
 - hook must be declared on the root-level of the component
+
+ - not possible to use Hooks in nested functions
+
+- not possible to use Hooks in if statements

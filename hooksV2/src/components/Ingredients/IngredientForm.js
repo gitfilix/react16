@@ -17,7 +17,11 @@ const IngredientForm = React.memo(props => {
 
   const submitHandler = event => {
     event.preventDefault();
-    //
+    // method passed from ingredient.js
+    props.onAddIngredient({
+      title: enteredTitle,
+      amount: enteredAmount
+    });
   };
 
   return (
@@ -38,7 +42,7 @@ const IngredientForm = React.memo(props => {
             <input type="number" id="amount"
                 value={enteredAmount}
                 onChange={event => {
-                    setEnteredAmount(event.targed.value)
+                    setEnteredAmount(event.target.value)
                   }}
               />
           </div>
