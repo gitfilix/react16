@@ -1,0 +1,35 @@
+React hooks!
+-------------
+
+repetion:
+functional components ('dumb'):
+-------------------------------
+- only props in -> jsx out
+- presentational
+- focus on one purpose
+
+--> here HOOKS comes into play!
+
+classbased components
+----------------------
+- use state and props
+- buisnes logic
+- organises other components
+- lifecycle hooks
+
+
+
+1.react hooks are functions.
+2. can be used inside functional components to make them more
+3. syntax: 'named useXYZ()'
+4. re-useable
+5. allow to share stateful and logic across components
+6. managing state and side effects
+
+
+- useState can be initialised with default values like an array, a boolian, number or an object.
+(compared to classical state: it always has to be an object!)
+
+- useState(initialState) in a functional Component creates State that 'survives' livecycle updates!
+
+- hook must be declared on the root-level of the component
