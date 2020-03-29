@@ -10,16 +10,16 @@ functional components ('dumb'):
 
 --> here HOOKS comes into play!
 
-classbased components
+class-based components
 ----------------------
 - use state and props
-- buisnes logic
+- business logic
 - organises other components
 - lifecycle hooks
 
 
 
-1.react hooks are functions.
+1. react hooks are functions.
 2. can be used inside functional components to make them more
 3. syntax: 'named useXYZ()'
 4. re-useable
