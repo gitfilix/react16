@@ -20,7 +20,7 @@
 
 .form-control input:focus {
   outline: none;
-  border-bottom-color: #ff2058;
+  border-bottom-color: #23aee1;
 }
 
 .ingredient-form__actions {
