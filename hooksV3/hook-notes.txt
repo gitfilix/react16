@@ -35,3 +35,6 @@ classbased components
 // useState hook
 
 - always returns array with two elements [current-state SNAP Shot, function to update]
+- manage state in functional components
+- survives re-render cycle
+- is an array with EXACTLY two elements: [statePointer, stateUdateFunction]
