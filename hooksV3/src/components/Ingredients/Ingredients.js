@@ -9,11 +9,24 @@ const Ingredients= () => {
 
   // update Ingr List and store it into array
   const addIngredientHandler = ingredient => {
-      setUserIngredients(prevIngredients => [...prevIngredients, {
-            id: Math.random().toString(), 
-            ...ingredient
-          }
+      // fetch from hooky3 firebase 
+    fetch('https://hooky3-88cbd.firebaseio.com/ingredients.json', {
+      method: 'POST',
+      body: JSON.stringify(ingredient),
+      headers: {
+        'Content-Type' : 'application/json' 
+      }
+      // parse body response
+    }).then(response => {
+      return response.json()
+      // exexutes if fetch-promise is resolved
+      // responseData is Firebase convention
+    }).then(responseData => {
+      setUserIngredients(prevIngredients => [
+        ...prevIngredients, 
+        { id: responseData.name, ...ingredient }
       ])
+    })
   }
 
   //delete item
