@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import IngredientList from './IngredientList'
 import IngredientForm from './IngredientForm';
 import Search from './Search';
@@ -6,6 +6,23 @@ import Search from './Search';
 
 const Ingredients= () => {
   const [userIngedients, setUserIngredients] = useState([])
+
+  useEffect(() => {
+    fetch('https://hooky3-88cbd.firebaseio.com/ingredients.json')
+    .then(response => response.json())
+    .then(responseData => {
+      const loadedData = []
+      for (const key in responseData) {
+        loadedData.push({
+          id: key,
+          title: responseData[key].title,
+          amount: responseData[key].amount
+        })
+      }
+      setUserIngredients(loadedData);
+    })
+  }, [])
+
 
   // update Ingr List and store it into array
   const addIngredientHandler = ingredient => {

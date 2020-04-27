@@ -38,3 +38,13 @@ classbased components
 - manage state in functional components
 - survives re-render cycle
 - is an array with EXACTLY two elements: [statePointer, stateUdateFunction]
+
+
+// useEffect hook
+for so-called 'side-effects'
+will be executed AFTER! every render-cycle of the component. 
+It acts lice componentDidUpdate. (after every component update)
+
+first argumen is a function
+second argument is array ->  dependencies-array [] 
+-> [] empty array means runs only after first render-cycle
