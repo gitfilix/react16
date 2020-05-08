@@ -23,7 +23,7 @@ classbased components
 
 
 
-1.react hooks are functions.
+1. react hooks are functions.
 2. can be used inside functional components to make them more
 3. syntax: 'named useXYZ()'
 4. re-useable
@@ -48,3 +48,22 @@ It acts lice componentDidUpdate. (after every component update)
 first argumen is a function
 second argument is array ->  dependencies-array [] 
 -> [] empty array means runs only after first render-cycle
+
+
+
+sideNote:
+strange, that functions can change during runtime, but remember: functions are objects and behave like any other value
+
+
+// useCallback hook
+const myFunc = useCallback((args) => {
+  dosomecrazystuff(args)
+}, [])
+
+acts like a wrapper arround a function 
+caches a function to survives re-render  
+
+
+
+// useRef hook
+references to a input field  

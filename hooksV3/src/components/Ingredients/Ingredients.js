@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import IngredientList from './IngredientList'
 import IngredientForm from './IngredientForm';
 import Search from './Search';
@@ -6,33 +6,14 @@ import Search from './Search';
 
 const Ingredients= () => {
   const [userIngedients, setUserIngredients] = useState([])
-
-  useEffect(() => {
-    fetch('https://hooky3-88cbd.firebaseio.com/ingredients.json')
-    .then(response => response.json())
-    .then(responseData => {
-      const loadedData = []
-      for (const key in responseData) {
-        loadedData.push({
-          id: key,
-          title: responseData[key].title,
-          amount: responseData[key].amount
-        })
-      }
-      setUserIngredients(loadedData);
-    })
-  }, [])
-
-
+  
   // update Ingr List and store it into array
   const addIngredientHandler = ingredient => {
-      // fetch from hooky3 firebase 
+    // fetch from hooky3 firebase 
     fetch('https://hooky3-88cbd.firebaseio.com/ingredients.json', {
       method: 'POST',
       body: JSON.stringify(ingredient),
-      headers: {
-        'Content-Type' : 'application/json' 
-      }
+      headers: { 'Content-Type' : 'application/json' }
       // parse body response
     }).then(response => {
       return response.json()
@@ -45,10 +26,21 @@ const Ingredients= () => {
       ])
     })
   }
+  
+  // filteredIngredients on search component with useCallback wrapper
+  const filteredIngredientsHandler = useCallback((filteredIngredients) => {
+     setUserIngredients(filteredIngredients)
+  }, [])
 
-  //delete item
+  // delete item
   const removeIngredientHandler = ingredientId => {
-    setUserIngredients(prevIngredients => prevIngredients.filter((ingredient) => (ingredient.id !== ingredientId) ))
+    // fetch from hooky3 firebase 
+    fetch(`https://hooky3-88cbd.firebaseio.com/ingredients/${ingredientId}.json`, {
+      method: 'DELETE'
+    }).then(response => {
+      setUserIngredients((prevIngredients) => 
+        prevIngredients.filter((ingredient) => (ingredient.id !== ingredientId) ))
+    })
   }
 
   return (
@@ -56,8 +48,11 @@ const Ingredients= () => {
       <IngredientForm onAddIngredient={addIngredientHandler} />
 
       <section>
-        <Search />
-        <IngredientList ingredients={userIngedients} onRemoveItem={removeIngredientHandler} />
+        <Search onLoadingIngredients={filteredIngredientsHandler} />
+        <IngredientList 
+          ingredients={userIngedients} 
+          onRemoveItem={removeIngredientHandler} 
+        />
       </section>
     </div>
   );
