@@ -2,13 +2,20 @@ import React, { useState, useEffect, useCallback } from 'react';
 import IngredientList from './IngredientList'
 import IngredientForm from './IngredientForm';
 import Search from './Search';
-
+import ErrorModal from '../UI/ErrorModal'
 
 const Ingredients= () => {
-  const [userIngedients, setUserIngredients] = useState([])
-  
+  const [userIngredients, setUserIngredients] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState() // no initial value
+
+  useEffect(()=>{
+    console.log('Rendering ingredients', userIngredients);
+  }, [userIngredients])
+
   // update Ingr List and store it into array
   const addIngredientHandler = ingredient => {
+    setIsLoading(true)
     // fetch from hooky3 firebase 
     fetch('https://hooky3-88cbd.firebaseio.com/ingredients.json', {
       method: 'POST',
@@ -16,6 +23,8 @@ const Ingredients= () => {
       headers: { 'Content-Type' : 'application/json' }
       // parse body response
     }).then(response => {
+      // set isLoading true
+      setIsLoading(false)
       return response.json()
       // exexutes if fetch-promise is resolved
       // responseData is Firebase convention
@@ -24,6 +33,9 @@ const Ingredients= () => {
         ...prevIngredients, 
         { id: responseData.name, ...ingredient }
       ])
+    }).catch(error => {
+      setError('an error occured!')
+      setIsLoading(false)
     })
   }
   
@@ -34,23 +46,31 @@ const Ingredients= () => {
 
   // delete item
   const removeIngredientHandler = ingredientId => {
+    setIsLoading(true)
     // fetch from hooky3 firebase 
     fetch(`https://hooky3-88cbd.firebaseio.com/ingredients/${ingredientId}.json`, {
       method: 'DELETE'
     }).then(response => {
+      setIsLoading(false)
       setUserIngredients((prevIngredients) => 
         prevIngredients.filter((ingredient) => (ingredient.id !== ingredientId) ))
     })
   }
 
+  // cleare Errormessage
+  const clearError = ()=> {
+    setError(null)
+  }
+
   return (
     <div className="App">
-      <IngredientForm onAddIngredient={addIngredientHandler} />
+      {error && <ErrorModal message={error} onClose={clearError} /> }
+      <IngredientForm onAddIngredient={addIngredientHandler} loading={isLoading} />
 
       <section>
         <Search onLoadingIngredients={filteredIngredientsHandler} />
         <IngredientList 
-          ingredients={userIngedients} 
+          ingredients={userIngredients} 
           onRemoveItem={removeIngredientHandler} 
         />
       </section>
